@@ -61,10 +61,12 @@ Use the Linux `chkconfig` command to place the Alluxio init.d scripts in the cor
 
      chkconfig --list
      ...
-     alluxio-master	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-     alluxio-job-master	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-     alluxio-proxy	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-     alluxio-logserver	0:off	1:off	2:on	3:on	4:on	5:on	6:off
+     ```
+     alluxio-master     0:off	1:off	2:on	3:on	4:on	5:on	6:off
+     alluxio-job-master 0:off	1:off	2:on	3:on	4:on	5:on	6:off
+     alluxio-proxy      0:off	1:off	2:on	3:on	4:on	5:on	6:off
+     alluxio-logserver  0:off	1:off	2:on	3:on	4:on	5:on	6:off
+     ```
      ...
 
 ### Step 5. Reboot server to test init.d scripts
