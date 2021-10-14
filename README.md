@@ -40,7 +40,7 @@ Run Level | Mode | Action
 5 | X11 | As runlevel 3 + display manager(X)
 6 | Reboot | Reboots the system
 
-You may also modify the user that will start the daemons, and the ALLUXIO_HOME directory, if you installed it in a non-traditional location. Here is an example with the user set to "alluxio", but you can change it to "root" if you want the root user to start the daemons.
+You may also modify the user that will start the Alluxio daemons, as well as the ALLUXIO_HOME directory, if you installed it in a non-traditional location. Here is an example with the user set to "alluxio", but you can change it to "root" if you want the root user to start the daemons.
 
      LINUX_USER=alluxio
      ALLUXIO_HOME=/opt/alluxio
