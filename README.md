@@ -52,7 +52,7 @@ When you copy the Alluxio init.d scripts to the /etc/init.d directory, they will
 
 ### Step 4. Enable the Alluxio init.d scripts
 
-Use the Linux chkconfig command to place the Alluxio init.d scripts in the correct /etc/rc.d directories, based on the required start order.
+Use the Linux `chkconfig` command to place the Alluxio init.d scripts in the correct /etc/rc.d directories, based on the required start order.
 
      sudo chkconfig --add alluxio-master
      sudo chkconfig --add alluxio-job-master
