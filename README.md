@@ -44,20 +44,37 @@ Run Level | Mode | Action
 
 When you copy the Alluxio init.d scripts to the /etc/init.d directory, they will be staged to the appropriate /etc/rc.d/rc[0-6].d/ directories, which coorispond to each run-level. They will be "linked" from the /etc/rc.d directories to the /etc/init.d/alluxio-* scripts.
 
+On the Alluxio master nodes, copy these scripts:
+
      sudo cp init.d-scripts/alluxio-master /etc/init.d/
      sudo cp init.d-scripts/alluxio-job-master /etc/init.d/
      sudo cp init.d-scripts/alluxio-proxy /etc/init.d/
      sudo cp init.d-scripts/alluxio-logserver /etc/init.d/
      sudo chmod +x /etc/init.d/alluxio-*
 
+On the Alluxio worker nodes, copy these scripts:
+
+     sudo cp init.d-scripts/alluxio-worker /etc/init.d/
+     sudo cp init.d-scripts/alluxio-job-worker /etc/init.d/
+     sudo cp init.d-scripts/alluxio-proxy /etc/init.d/
+     sudo chmod +x /etc/init.d/alluxio-*
+
 ### Step 4. Enable the Alluxio init.d scripts
 
 Use the Linux `chkconfig` command to place the Alluxio init.d scripts in the correct /etc/rc.d directories, based on the required start order.
+
+On the Alluxio master nodes, enable these scripts:
 
      sudo chkconfig --add alluxio-master
      sudo chkconfig --add alluxio-job-master
      sudo chkconfig --add alluxio-proxy
      sudo chkconfig --add alluxio-logserver
+
+On the Alluxio worker nodes, enable these scripts:
+
+     sudo chkconfig --add alluxio-worker
+     sudo chkconfig --add alluxio-job-worker
+     sudo chkconfig --add alluxio-proxy
 
 Now if you look at the sub-directories under the /etc/rc.d directory, you will see where the file links were created:
 
