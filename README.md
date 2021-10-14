@@ -104,7 +104,7 @@ Or you can use the `chkconfig` command to list the new services:
 
 ### Step 5. Reboot server to test init.d scripts
 
-Now that you have anabled the Alluxio init.d scripts, the Linux init daemon should run the scripts and start the daemons at boot time. Reboot the server to test that functionality.
+Now that you have anabled the Alluxio init.d scripts, the Linux init process should run the scripts and start the Alluxio daemons at boot time. Reboot the server to test that functionality.
 
      shutdown -r 0
 
