@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+### BEGIN INIT INFO
+# Provides:        alluxio-job-worker
+# Required-Start:  $local_fs $remote_fs $network $named $syslog $time
+# Required-Stop:   $local_fs $remote_fs $network $named $syslog $time
+# Default-Start:   3 4 5
+# Default-Stop:
+# Short-Description: Example of Start/Stop Alluxio Job Worker
+### END INIT INFO
+
+LINUX_USER=alluxio
+ALLUXIO_HOME=/opt/alluxio
+DAEMON_NAME=job-worker
+JAVA_CLASS_NAME=alluxio.worker.AlluxioJobWorker
+START_SCRIPT=alluxio-start.sh
+STOP_SCRIPT=alluxio-stop.sh
+
+pid=`ps -ef | grep java | grep -- "${JAVA_CLASS_NAME}" | grep -v grep | awk '{ print $2 }'`
+
+case $1 in
+start)
+    if [ "${pid}" != "" ]
+    then
+        echo "Alluxio ${DAEMON_NAME} service is already running"
+        exit 1
+    else
+        echo "Starting Alluxio ${DAEMON_NAME}."
+        /bin/su --login $LINUX_USER -c "${ALLUXIO_HOME}/bin/${START_SCRIPT} ${DAEMON_NAME}"
+    fi
+    ;;
+stop)
+    if [ "${pid}" != "" ]
+    then
+        echo "Stopping Alluxio ${DAEMON_NAME}."
+        /bin/su --login $LINUX_USER -c "${ALLUXIO_HOME}/bin/${STOP_SCRIPT} ${DAEMON_NAME}"
+    else
+        echo "Alluxio ${DAEMON_NAME} service is NOT running"
+        exit 1
+    fi
+    ;;
+restart)
+    if [ "${pid}" != "" ]
+    then
+        echo "Stopping Alluxio ${DAEMON_NAME}."
+        /bin/su --login $LINUX_USER -c "${ALLUXIO_HOME}/bin/${STOP_SCRIPT} ${DAEMON_NAME}"
+        sleep 10
+    fi
+    echo "Starting Alluxio ${DAEMON_NAME}."
+    /bin/su --login $LINUX_USER -c "${ALLUXIO_HOME}/bin/${START_SCRIPT} ${DAEMON_NAME}"
+    ;;
+status)
+    if [ "${pid}" != "" ]
+    then
+        echo "Alluxio ${DAEMON_NAME} service is running [pid={$pid}]"
+    else
+        echo "Alluxio ${DAEMON_NAME} service is NOT running."
+
+    fi
+    ;;
+*)
+    echo "Invalid argument [$1]; Only start|stop|restart|status are supported."
+    exit 1
+esac
