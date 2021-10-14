@@ -13,7 +13,7 @@ or, download the repo zip file, by clicking on the green "Code" button.
 
 ### Step 2. Modify the init.d scripts
 
-In each Alluxio init.d script there is a section at the top of the file that specifies when the script will be executed. For example, here is the section for the alluxio-master init.d script that shows it will be started in run levels 2,3,4 and 5 and will only be started after some other services are started, like $network, $named, $syslog and other.
+In each Alluxio init.d script there is a section at the top of the file that specifies when the script will be executed. For example, here is the section for the alluxio-master init.d script that shows it will be started in run levels 3,4 and 5 and will only be started after some other services are started, like $network, $named, $syslog and other.
 
      ### BEGIN INIT INFO
      # Provides:        alluxio-master
