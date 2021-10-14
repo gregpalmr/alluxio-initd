@@ -1,7 +1,9 @@
 # alluxio-initd
 An example of starting Alluxio daemons using Linux init.d start/stop scripts
 
-This git repo offers some example Linux init.d scripts for starting and stopping Alluxio daemons. It should be noted that most Red Hat deployments now use the systemd sub-system to manage services (see https://www.linux.com/training-tutorials/understanding-and-using-systemd).  If you would like to review some examples of starting Alluxio daemons using systemd commands (systemctl, journalctl), see https://github.com/gregpalmr/alluxio-systemd.
+This git repo offers some example Linux init.d scripts for starting and stopping Alluxio daemons. 
+
+It should be noted that most Red Hat deployments now use the systemd sub-system to manage services (see https://www.linux.com/training-tutorials/understanding-and-using-systemd).  If you would like to review some examples of starting Alluxio daemons using systemd commands (systemctl, journalctl), see https://github.com/gregpalmr/alluxio-systemd.
 
 # Usage
 
