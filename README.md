@@ -59,6 +59,17 @@ Use the Linux `chkconfig` command to place the Alluxio init.d scripts in the cor
      sudo chkconfig --add alluxio-proxy
      sudo chkconfig --add alluxio-logserver
 
+Now if you look at the sub-directories under the /etc/rc.d directory, you will see where the file links were created:
+
+     find /etc/rc.d/ | grep alluxio-master
+     ...
+     /etc/rc.d/rc3.d/S50alluxio-master
+     /etc/rc.d/rc4.d/S50alluxio-master
+     /etc/rc.d/rc5.d/S50alluxio-master
+     ...
+
+Or you can use the `chkconfig` command to list the new services:
+
      chkconfig --list
      ...
      alluxio-master     0:off	1:off	2:on	3:on	4:on	5:on	6:off
