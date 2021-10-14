@@ -1,19 +1,46 @@
 # alluxio-initd
 An example of starting Alluxio daemons using Linux init.d start/stop scripts
 
-This git repo offers some example Linux init.d script for starting and stopping Alluxio daemons. It should be noted that most Red Hat deployments now use the systemd sub-system to manage services (see https://www.linux.com/training-tutorials/understanding-and-using-systemd).  If you would like to review some examples of starting Alluxio daemons using systemd commands (systemctl, journalctl), see https://github.com/gregpalmr/alluxio-systemd.
+This git repo offers some example Linux init.d scripts for starting and stopping Alluxio daemons. It should be noted that most Red Hat deployments now use the systemd sub-system to manage services (see https://www.linux.com/training-tutorials/understanding-and-using-systemd).  If you would like to review some examples of starting Alluxio daemons using systemd commands (systemctl, journalctl), see https://github.com/gregpalmr/alluxio-systemd.
 
 # Usage
 
-Step 1. Clone this git repo, or download the source files
+### Step 1. Clone this git repo, or download the source files
 
      git clone https://github.com/gregpalmr/alluxio-initd
 
-     or, download the repo zip file, by clicking on the green "Code" button.
+or, download the repo zip file, by clicking on the green "Code" button.
 
-Step 2. Modify the init.d scripts
+### Step 2. Modify the init.d scripts
 
-Step 3. Copy the Alluxio init.d script to the /etc/init.d directory
+In each Alluxio init.d script there is a section at the top of the file that specifies when the script will be executed. For example, here is the section for the alluxio-master init.d script:
+
+     ### BEGIN INIT INFO
+     # Provides:        alluxio-master
+     # Required-Start:  $local_fs $remote_fs $network $named $syslog $time
+     # Required-Stop:   $local_fs $remote_fs $network $named $syslog $time
+     # Default-Start:   2 3 4 5
+     # Default-Stop:
+     # Short-Description: Example of Start/Stop Alluxio Master
+     ### END INIT INFO
+
+You may modify this section to customize the startup behavior. For instance if you wanted the Alluxio daemons to be started AFTER the Puppet process starts and does its work, you can specify "$puppet" (or what ever you named the Puppet unit in its init.d script) in the "Required-Start" section. For example:
+
+     # Required-Start:  $local_fs $remote_fs $network $named $syslog $time $puppet
+
+You can also change the run-levels that the script will be executed on. Here is xxx
+
+Run Level | Mode | Action
+--- | --- | ---
+0 | Halt | Shuts down system
+1 | Single-User Mode | Does not configure network interfaces, start daemons, or allow non-root logins
+2 | Multi-User Mode | Does not configure network interfaces or start daemons.
+3 | Multi-User Mode with Networking | Starts the system normally.
+4 | Undefined | Not used/User-definable
+5 | X11 | As runlevel 3 + display manager(X)
+6 | Reboot | Reboots the system
+
+### Step 3. Copy the Alluxio init.d script to the /etc/init.d directory
 
 When you copy the Alluxio init.d scripts to the /etc/init.d directory, they will be staged to the appropriate /etc/rc.d/rc[0-6].d/ directories, which coorispond to each run-level. They will be "linked" from the /etc/rc.d directories to the /etc/init.d/alluxio-* scripts.
 
@@ -23,7 +50,7 @@ When you copy the Alluxio init.d scripts to the /etc/init.d directory, they will
      sudo cp init.d-scripts/alluxio-logserver /etc/init.d/
      sudo chmod +x /etc/init.d/alluxio-*
 
-Step 4. Enable the Alluxio init.d scripts
+### Step 4. Enable the Alluxio init.d scripts
 
 Use the Linux chkconfig command to place the Alluxio init.d scripts in the correct /etc/rc.d directories, based on the required start order.
 
@@ -40,13 +67,13 @@ Use the Linux chkconfig command to place the Alluxio init.d scripts in the corre
      alluxio-logserver	0:off	1:off	2:on	3:on	4:on	5:on	6:off
      ...
 
-Step 5. Reboot server to test init.d scripts
+### Step 5. Reboot server to test init.d scripts
 
 Now that you have anabled the Alluxio init.d scripts, the Linux init daemon should run the scripts and start the daemons at boot time. Reboot the server to test that functionality.
 
      shutdown -r 0
 
-Step 6. Disable and re-enable as needed
+### Step 6. Disable and re-enable as needed
 
      chkconfig alluxio-master off
 
