@@ -103,14 +103,14 @@ Now that you have anabled the Alluxio init.d scripts, the Linux init daemon shou
 
 ### Step 6. Disable and re-enable as needed
 
-     chkconfig alluxio-master off
+     sudo chkconfig alluxio-master off
 
      chkconfig --list
      ...
      alluxio-logserver  0:off	1:off	2:off	3:off	4:off	5:off	6:off
      ...
 
-     chkconfig alluxio-master on
+     sudo chkconfig alluxio-master on
 
      chkconfig --list
      ...
