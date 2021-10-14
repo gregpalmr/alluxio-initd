@@ -13,22 +13,22 @@ or, download the repo zip file, by clicking on the green "Code" button.
 
 ### Step 2. Modify the init.d scripts
 
-In each Alluxio init.d script there is a section at the top of the file that specifies when the script will be executed. For example, here is the section for the alluxio-master init.d script:
+In each Alluxio init.d script there is a section at the top of the file that specifies when the script will be executed. For example, here is the section for the alluxio-master init.d script that shows it will be started in run levels 2,3,4 and 5 and will only be started after some other services are started, like $network, $named, $syslog and other.
 
      ### BEGIN INIT INFO
      # Provides:        alluxio-master
      # Required-Start:  $local_fs $remote_fs $network $named $syslog $time
      # Required-Stop:   $local_fs $remote_fs $network $named $syslog $time
-     # Default-Start:   2 3 4 5
+     # Default-Start:   3 4 5
      # Default-Stop:
      # Short-Description: Example of Start/Stop Alluxio Master
      ### END INIT INFO
 
-You may modify this section to customize the startup behavior. For instance if you wanted the Alluxio daemons to be started AFTER the Puppet process starts and does its work, you can specify "$puppet" (or what ever you named the Puppet unit in its init.d script) in the "Required-Start" section. For example:
+You may modify this section to customize the startup behavior. For instance if you want the Alluxio daemons to be started AFTER the Puppet process starts and does its work, you can specify "$puppet" in the "Required-Start" section (or what ever you named the Puppet unit in its init.d script). For example:
 
      # Required-Start:  $local_fs $remote_fs $network $named $syslog $time $puppet
 
-You can also change the run-levels that the script will be executed on. Here is xxx
+You can also change the run-levels that the script will be executed on by modifying the "Default-Start" specification. Here is a list of run levels on Red Hat EL servers.
 
 Run Level | Mode | Action
 --- | --- | ---
